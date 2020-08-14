@@ -1,0 +1,59 @@
+
+./simple_foo:	file format Mach-O 64-bit x86-64
+
+
+Disassembly of section __TEXT,__text:
+
+0000000100000ef0 _foo:
+100000ef0: 55                          	pushq	%rbp
+100000ef1: 48 89 e5                    	movq	%rsp, %rbp
+100000ef4: f3 0f 10 05 a4 00 00 00     	movss	164(%rip), %xmm0
+100000efc: f3 0f 10 0d a0 00 00 00     	movss	160(%rip), %xmm1
+100000f04: f3 0f 11 4d f8              	movss	%xmm1, -8(%rbp)
+100000f09: f3 0f 11 4d f4              	movss	%xmm1, -12(%rbp)
+100000f0e: f3 0f 10 4d f4              	movss	-12(%rbp), %xmm1
+100000f13: f3 0f 59 45 f8              	mulss	-8(%rbp), %xmm0
+100000f18: f3 0f 58 c8                 	addss	%xmm0, %xmm1
+100000f1c: f3 0f 11 4d fc              	movss	%xmm1, -4(%rbp)
+100000f21: f3 0f 10 45 fc              	movss	-4(%rbp), %xmm0
+100000f26: 5d                          	popq	%rbp
+100000f27: c3                          	retq
+100000f28: 0f 1f 84 00 00 00 00 00     	nopl	(%rax,%rax)
+
+0000000100000f30 _main:
+100000f30: 55                          	pushq	%rbp
+100000f31: 48 89 e5                    	movq	%rsp, %rbp
+100000f34: 48 83 ec 10                 	subq	$16, %rsp
+100000f38: c7 45 fc 00 00 00 00        	movl	$0, -4(%rbp)
+100000f3f: 48 8d 3d 62 00 00 00        	leaq	98(%rip), %rdi
+100000f46: b0 00                       	movb	$0, %al
+100000f48: e8 31 00 00 00              	callq	49 <dyld_stub_binder+0x100000f7e>
+100000f4d: 89 45 f4                    	movl	%eax, -12(%rbp)
+100000f50: e8 9b ff ff ff              	callq	-101 <_foo>
+100000f55: f3 0f 11 45 f8              	movss	%xmm0, -8(%rbp)
+100000f5a: f3 0f 10 45 f8              	movss	-8(%rbp), %xmm0
+100000f5f: f3 0f 5a c0                 	cvtss2sd	%xmm0, %xmm0
+100000f63: 48 8d 3d 4b 00 00 00        	leaq	75(%rip), %rdi
+100000f6a: b0 01                       	movb	$1, %al
+100000f6c: e8 0d 00 00 00              	callq	13 <dyld_stub_binder+0x100000f7e>
+100000f71: 31 c9                       	xorl	%ecx, %ecx
+100000f73: 89 45 f0                    	movl	%eax, -16(%rbp)
+100000f76: 89 c8                       	movl	%ecx, %eax
+100000f78: 48 83 c4 10                 	addq	$16, %rsp
+100000f7c: 5d                          	popq	%rbp
+100000f7d: c3                          	retq
+
+Disassembly of section __TEXT,__stubs:
+
+0000000100000f7e __stubs:
+100000f7e: ff 25 7c 10 00 00           	jmpq	*4220(%rip)
+
+Disassembly of section __TEXT,__stub_helper:
+
+0000000100000f84 __stub_helper:
+100000f84: 4c 8d 1d 7d 10 00 00        	leaq	4221(%rip), %r11
+100000f8b: 41 53                       	pushq	%r11
+100000f8d: ff 25 6d 00 00 00           	jmpq	*109(%rip)
+100000f93: 90                          	nop
+100000f94: 68 00 00 00 00              	pushq	$0
+100000f99: e9 e6 ff ff ff              	jmp	-26 <__stub_helper>
