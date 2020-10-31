@@ -1,6 +1,6 @@
 FROM clearlinux
-RUN swupd bundle-add c-basic git vim graphviz
+RUN swupd bundle-add git vim graphviz sudo c-extras-gcc9 curl flex
 RUN useradd -ms /bin/bash student
 USER student
 WORKDIR /home/student
-RUN git clone https://github.com/VictorRodriguez/compilers-lecture.git
+RUN git clone https://github.com/memoherreraacosta/compilers-lecture.git
